@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   essai.c                                            :+:      :+:    :+:   */
+/*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcherepoff <tcherepoff@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:04:52 by tcherepoff        #+#    #+#             */
-/*   Updated: 2025/03/10 17:18:32 by tcherepoff       ###   ########.fr       */
+/*   Updated: 2025/03/15 05:16:56 by tcherepoff       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <sys/wait.h>
-#include <stdlib.h>
+#include "pipex.h"
 
 char	**ft_path(char **env)
 {
 	char	**path;
 	int		i;
 
+	if (!env)
+		exit(1);
 	i = 0;
 	while (env[i])
 	{
@@ -30,8 +28,7 @@ char	**ft_path(char **env)
 	}
 	if (!env[i])
 		return (NULL);
-	i =+ 5;
-	path = ft_split(env[i], ':');
+	path = ft_split(env[i] + 5, ':');
 	return (path);
 }
 
@@ -57,6 +54,7 @@ char	*get_path(char *cmd, char **env)
 		free(dest);
 		i++;
 	}
+	dprintf(2, "pipex: command not found: %s\n", cmd);
 	ft_free_tab(path);
 	free(tmp);
 	return (NULL);
