@@ -6,7 +6,7 @@
 /*   By: tcherepoff <tcherepoff@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:04:52 by tcherepoff        #+#    #+#             */
-/*   Updated: 2025/03/15 05:16:56 by tcherepoff       ###   ########.fr       */
+/*   Updated: 2025/03/17 15:29:05 by tcherepoff       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	**ft_path(char **env)
 	int		i;
 
 	if (!env)
-		exit(1);
+		error ("no env", 1);
 	i = 0;
 	while (env[i])
 	{
@@ -54,8 +54,13 @@ char	*get_path(char *cmd, char **env)
 		free(dest);
 		i++;
 	}
-	dprintf(2, "pipex: command not found: %s\n", cmd);
 	ft_free_tab(path);
 	free(tmp);
 	return (NULL);
+}
+
+void	error(char *s, int x)
+{
+	write(2, s, ft_strlen(s));
+	exit(x);
 }
